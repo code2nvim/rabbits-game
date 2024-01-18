@@ -1,0 +1,48 @@
+body {
+  /* BSOD :P */
+  background: blue;
+  margin: 0;
+  display: grid;
+  font-family: sans-serif;
+  grid-template-rows: 2em 1fr 2em;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+header {
+  background: black;
+  border: darkgreen 1px solid;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  background: darkgreen;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+footer {
+  background: darkgreen;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0px 5px;
+}
+
+footer button {
+  border: 1px gray solid;
+  color: white;
+  margin: 0px 5px;
+}
+
+.gradient {
+  background-image: linear-gradient(green, black);
+  background-clip: padding-box;
+}
