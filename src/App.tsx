@@ -1,3 +1,4 @@
+import Game from "./Game/Game";
 import "./styles.css";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
           <p>Rabbits Game</p>
         </header>
         <main>
+          <Game />
         </main>
         <footer>
           <button className="gradient">TODO</button>

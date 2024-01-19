@@ -1,0 +1,43 @@
+.targets {
+  aspect-ratio: 1 / 1;
+  background: green;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vmin;
+  width: 100vmin;
+}
+
+.hole {
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 30%;
+  width: 30%;
+}
+
+.hole img {
+  margin: 10%;
+  width: 90%;
+}
+
+.status {
+  color: orange;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.score {
+  color: white;
+  font-size: 1.5em;
+}
+
+.status button {
+  font-size: 1.3em;
+  font-weight: bold;
+  width: 100%;
+}
