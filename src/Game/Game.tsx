@@ -5,13 +5,13 @@ import "./Game.css";
 const hole = "hole";
 const rabbit = "rabbit";
 const carrot = "carrot";
+type Target = "hole" | "rabbit" | "carrot";
 
 export default function Game() {
   const [msg, setMsg] = useState("Attack the carrot thieves!");
   const [score, setScore] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [targets, setTargets] = useState<Target[]>(new Array(9).fill(hole));
-  type Target = "hole" | "rabbit" | "carrot";
 
   function startGame() {
     setScore(0);
@@ -19,52 +19,49 @@ export default function Game() {
     setTargets(new Array(9).fill(hole));
   }
 
-  function endGame(failed: Target) {
-    setTimeout(() => {
-      if (failed === carrot) setMsg("Carrot's gone!");
-      if (failed === rabbit) setMsg("It's an innocent rabbit!");
-    }, 100);
-    const holes = new Array(9).fill(hole);
-    setTargets(holes);
+  function endGame(reason: Target) {
     setPlaying(false);
-  }
-
-  function rabbitOut(idx: number) {
-    setTargets((_targets) => {
-      if (_targets[idx] === carrot) endGame(carrot);
-      const newTargets = [..._targets];
-      newTargets[idx] = hole;
-      return newTargets;
-    });
+    setTargets(new Array(9).fill(hole));
+    if (reason === carrot) setMsg("Carrot's gone!");
+    if (reason === rabbit) setMsg("It's an innocent rabbit!");
   }
 
   function changeTarget(idx: number, target: Target) {
-    setTargets((_targets) => {
-      const newTargets = [..._targets];
+    setTargets((pre) => {
+      const newTargets = [...pre];
       newTargets[idx] = target;
       return newTargets;
     });
   }
 
-  function randomThief(): Target {
-    const rand = Math.floor(Math.random() * 2);
-    return rand === 0 ? rabbit : carrot;
+  function rabbitUp(idx: number) {
+    if (targets[idx] === hole) {
+      const rand = Math.floor(Math.random() * 2);
+      const target = rand === 0 ? rabbit : carrot;
+      changeTarget(idx, target);
+    }
+  }
+
+  function rabbitDown(idx: number) {
+    if (targets[idx] === carrot) {
+      endGame(carrot);
+    } else {
+      changeTarget(idx, hole);
+    }
   }
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const interval = setInterval(() => {
       if (playing) {
         const idx = Math.floor(Math.random() * targets.length);
-        if (targets[idx] === hole) {
-          changeTarget(idx, randomThief());
-          setTimeout(() => {
-            rabbitOut(idx);
-          }, 1500);
-        }
+        rabbitUp(idx);
+        setTimeout(() => {
+          rabbitDown(idx);
+        }, 1500);
       }
     }, 200);
-    return () => clearInterval(intervalId);
-  }, [targets]);
+    return () => clearInterval(interval);
+  });
 
   function clickTarget(idx: number) {
     if (playing) {
@@ -104,23 +101,22 @@ export default function Game() {
           return (
             <div className="hole">
               <img
-                src={assets(target)}
                 alt="hole"
+                src={assets(target)}
+                key={idx}
                 onClick={() => clickTarget(idx)}
               />
             </div>
           );
         })}
       </div>
-      <div className="status">
-        <p>
-          <span className="msg">{!playing && msg}</span>
-          <br />
-          <span className="score">SCORE: {score}</span>
-          <br />
-          {!playing && <button onClick={() => startGame()}>START</button>}
-        </p>
-      </div>
+      <p className="status">
+        <span className="msg">{!playing && msg}</span>
+        <br />
+        <span className="score">SCORE: {score}</span>
+        <br />
+        {!playing && <button onClick={() => startGame()}>START</button>}
+      </p>
     </>
   );
 }
