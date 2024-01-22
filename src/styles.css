@@ -2,8 +2,11 @@ body {
   /* BSOD :P */
   background: blue;
   margin: 0;
-  display: grid;
   font-family: sans-serif;
+}
+
+.app {
+  display: grid;
   grid-template-rows: 2em 1fr 2em;
   height: 100%;
   width: 100%;
