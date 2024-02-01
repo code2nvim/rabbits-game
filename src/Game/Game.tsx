@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import "./Game.css";
 
-// TODO: learn more TypeScript and replace those constants
-type Target = "hole" | "rabbit" | "carrot";
-
 export default function Game() {
   const [msg, setMsg] = useState("Attack the carrot thieves!");
   const [score, setScore] = useState(0);
   const [playing, setPlaying] = useState(false);
 
+  // TODO: learn more TypeScript then replace string literals
+  type Target = "hole" | "rabbit" | "carrot";
   const [targets, setTargets] = useState(new Array(9).fill("hole"));
   const locked = useRef(new Array(9).fill(false));
 
@@ -18,8 +17,8 @@ export default function Game() {
   };
 
   const endGame = (reason: Target) => {
-    setPlaying(false);
-    setTargets(new Array(9).fill("hole"));
+    setPlaying((newPlaying) => (newPlaying = false));
+    setTargets((newTargets) => (newTargets = new Array(9).fill("hole")));
     if (reason === "carrot") setMsg("Carrot's gone!");
     if (reason === "rabbit") setMsg("It's an innocent rabbit!");
   };
@@ -54,6 +53,7 @@ export default function Game() {
     }
   };
 
+  // TODO: custom speed
   useEffect(() => {
     if (playing) {
       const interval = setInterval(() => {
@@ -64,9 +64,9 @@ export default function Game() {
           setTimeout(() => {
             endRabbit(idx);
             locked.current[idx] = false;
-          }, 1000);
+          }, 800);
         }
-      }, 150);
+      }, 200);
       return () => clearInterval(interval);
     }
   }, [playing, targets]);
