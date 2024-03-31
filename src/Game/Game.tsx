@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import "./Game.css";
+import hole from "./assets/hole.png";
+import rabbit from "./assets/rabbit.png";
+import carrot from "./assets/carrot.png";
 
 export default function Game() {
   const [msg, setMsg] = useState("Attack the carrot thieves!");
@@ -17,8 +20,8 @@ export default function Game() {
   };
 
   const endGame = (reason: Target) => {
-    setPlaying((newPlaying) => (newPlaying = false));
-    setTargets((newTargets) => (newTargets = new Array(9).fill("hole")));
+    setPlaying(false);
+    setTargets(new Array(9).fill("hole"));
     if (reason === "carrot") setMsg("Carrot's gone!");
     if (reason === "rabbit") setMsg("It's an innocent rabbit!");
   };
@@ -69,7 +72,7 @@ export default function Game() {
       }, 200);
       return () => clearInterval(interval);
     }
-  }, [playing, targets]);
+  });
 
   const clickTarget = (idx: number) => {
     if (playing) {
@@ -92,11 +95,11 @@ export default function Game() {
   const assets = (target: Target): string => {
     switch (target) {
       case "carrot":
-        return require("./assets/carrot.png");
+        return carrot;
       case "hole":
-        return require("./assets/hole.png");
+        return hole;
       case "rabbit":
-        return require("./assets/rabbit.png");
+        return rabbit;
       default:
         throw new Error("Unknown action");
     }
