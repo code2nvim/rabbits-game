@@ -1,7 +1,7 @@
 import Game from "./Game/Game";
 import "./styles.css";
 
-function App() {
+const App = () => {
   return (
     <div className="app">
       <header>
@@ -17,6 +17,6 @@ function App() {
       </footer>
     </div>
   );
-}
+};
 
 export default App;

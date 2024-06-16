@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import "./Game.css";
 import hole from "./assets/hole.png";
 import rabbit from "./assets/rabbit.png";
 import carrot from "./assets/carrot.png";
+import "./Game.css";
 
-export default function Game() {
+const Game = () => {
   const [msg, setMsg] = useState("Attack the carrot thieves!");
   const [score, setScore] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -129,4 +129,6 @@ export default function Game() {
       </p>
     </>
   );
-}
+};
+
+export default Game;
