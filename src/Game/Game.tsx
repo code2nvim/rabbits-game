@@ -51,7 +51,7 @@ export default function Game() {
   const endRabbit = (idx: number) => {
     if (targets[idx] === "carrot") {
       endGame("carrot");
-    } else if (targets[idx] === "rabbit") {
+    } else if (targets[idx] === "innocent") {
       changeTarget(idx, "hole");
     }
   };
@@ -79,7 +79,7 @@ export default function Game() {
       switch (targets[idx]) {
         case "hole":
           break;
-        case "rabbit":
+        case "innocent":
           endGame("innocent");
           break;
         case "carrot":
