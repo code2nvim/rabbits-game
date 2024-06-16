@@ -10,7 +10,7 @@ export default function Game() {
   const [playing, setPlaying] = useState(false);
 
   // TODO: learn more TypeScript then replace string literals
-  type Target = "hole" | "rabbit" | "carrot";
+  type Target = "hole" | "innocent" | "carrot";
   const [targets, setTargets] = useState(new Array(9).fill("hole"));
   const locked = useRef(new Array(9).fill(false));
 
@@ -23,7 +23,7 @@ export default function Game() {
     setPlaying(false);
     setTargets(new Array(9).fill("hole"));
     if (reason === "carrot") setMsg("Carrot's gone!");
-    if (reason === "rabbit") setMsg("It's an innocent rabbit!");
+    if (reason === "innocent") setMsg("It's an innocent rabbit!");
   };
 
   const changeTarget = (idx: number, target: Target) => {
@@ -41,7 +41,7 @@ export default function Game() {
       const rand = Math.floor(Math.random() * 5);
       // rabbits : thieves = 4 : 1
       if (rand === 0) {
-        changeTarget(idx, "rabbit");
+        changeTarget(idx, "innocent");
       } else {
         changeTarget(idx, "carrot");
       }
@@ -80,7 +80,7 @@ export default function Game() {
         case "hole":
           break;
         case "rabbit":
-          endGame("rabbit");
+          endGame("innocent");
           break;
         case "carrot":
           changeTarget(idx, "hole");
@@ -98,7 +98,7 @@ export default function Game() {
         return carrot;
       case "hole":
         return hole;
-      case "rabbit":
+      case "innocent":
         return rabbit;
       default:
         throw new Error("Unknown action");
