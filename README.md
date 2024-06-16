@@ -1,2 +1,5 @@
 # Rabbits Game
-## Warning: TRASH CODE, I WILL FIX IT WHEN I HAVE TIME
+
+## Hit the thieves, don't attack innocent rabiits!
+
+![rabbits demo](./rabbits-demo.gif)
