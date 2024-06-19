@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import hole from "./assets/hole.png";
-import rabbit from "./assets/rabbit.png";
-import carrot from "./assets/carrot.png";
-import "./Game.css";
+import { Target, assets } from "./GameTargets";
 
 const Game = () => {
   const [msg, setMsg] = useState("Attack the carrot thieves!");
   const [score, setScore] = useState(0);
   const [playing, setPlaying] = useState(false);
 
-  // TODO: learn more TypeScript then replace string literals
-  type Target = "hole" | "innocent" | "carrot";
   const [targets, setTargets] = useState(new Array(9).fill("hole"));
   const locked = useRef(new Array(9).fill(false));
 
@@ -38,8 +33,8 @@ const Game = () => {
 
   const startRabbit = (idx: number) => {
     if (targets[idx] === "hole") {
-      const rand = Math.floor(Math.random() * 5);
       // rabbits : thieves = 4 : 1
+      const rand = Math.floor(Math.random() * 5);
       if (rand === 0) {
         changeTarget(idx, "innocent");
       } else {
@@ -89,19 +84,6 @@ const Game = () => {
         default:
           throw new Error("Unknown action");
       }
-    }
-  };
-
-  const assets = (target: Target): string => {
-    switch (target) {
-      case "carrot":
-        return carrot;
-      case "hole":
-        return hole;
-      case "innocent":
-        return rabbit;
-      default:
-        throw new Error("Unknown action");
     }
   };
 
